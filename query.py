@@ -48,7 +48,14 @@ def check_twitter():
     #resource building
     texts = [status["full_text"] for status in unique_statuses]
     status_urls = [re.findall('http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+', text) for text in texts]
-    resps = [urllib.urlopen(url) for urls in status_urls for url in urls]
+    resps = list()
+    for urls in status_urls:
+        for url in urls:
+            try:
+                link = urllib.urlopen(url)
+                resps.append(link)
+            except:
+                continue
     shared_links = [resp.url for resp in resps if "twitter" not in resp.url]
     shared_images = [resp.url for resp in resps if "photo" in resp.url]
     shared_links = list(set(shared_links))
