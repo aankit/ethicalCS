@@ -6,6 +6,15 @@ import urllib
 from firebase import *
 from firebase_admin import db
 
+def scrub_tweets_and_links_db():
+    links = [item for item in db.reference("resources").get().items() if item[1]["resource_type"] == "link"]
+    scrub_file = open("./scrub.txt")
+    scrub_list = scrub_file.readlines()
+    for link in links:
+        for scrub in scrub_list:
+            if scrub in link[1]["link"]:
+                db.reference("resources").child(link[0]).delete()          
+
 def check_twitter():
     t = Twitter(auth=OAuth(TOKEN,
         TOKEN_SECRET,
