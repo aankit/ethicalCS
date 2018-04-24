@@ -3,3 +3,5 @@ ethicalcs-53ebd-firebase-adminsdk-82aqh-d113bb8823.json
 ethicalCS.pem
 *.pyc
 venv
+update.txt
+wsgi.py

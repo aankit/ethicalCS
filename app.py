@@ -6,6 +6,10 @@ from firebase_admin import db
 app = Flask(__name__)
 
 @app.route("/")
+def home():
+    return "hello world!"
+
+@app.route("/update")
 def update():
     update_data = check_twitter() 
     return jsonify(update_data)
@@ -16,4 +20,4 @@ def links():
     return jsonify(link_resources_in_db)
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=8080)

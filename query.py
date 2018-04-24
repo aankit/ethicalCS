@@ -1,3 +1,5 @@
+#!/usr/bin/env python2
+
 from twitter import *
 from keys import *
 import pprint
@@ -5,6 +7,7 @@ import re
 import urllib
 from firebase import *
 from firebase_admin import db
+import time
 
 def scrub_tweets_and_links_db():
     links = [item for item in db.reference("resources").get().items() if item[1]["resource_type"] == "link"]
@@ -132,6 +135,7 @@ def check_twitter():
     return updated_data
 
 if __name__ == '__main__':
-    check_twitter()
-
+    update = check_twitter()
+    print time.ctime()
+    print update
 
